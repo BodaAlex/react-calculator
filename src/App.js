@@ -69,36 +69,42 @@ class App extends Component {
   };
 
   equal = () => {
-    // de ce nu merge daca folosesc setState() ?
-    this.state.currentNumber = this.state.input;
-    if (this.state.operand == "plus") {
-      this.setState({
-        input:
-          parseFloat(this.state.prevNumber) +
-          parseFloat(this.state.currentNumber)
-      });
-    }
-    if (this.state.operand == "minus") {
-      this.setState({
-        input:
-          parseFloat(this.state.prevNumber) -
-          parseFloat(this.state.currentNumber)
-      });
-    }
-    if (this.state.operand == "ori") {
-      this.setState({
-        input:
-          parseFloat(this.state.prevNumber) *
-          parseFloat(this.state.currentNumber)
-      });
-    }
-    if (this.state.operand == "divide") {
-      this.setState({
-        input:
-          parseFloat(this.state.prevNumber) /
-          parseFloat(this.state.currentNumber)
-      });
-    }
+    this.setState(
+      {
+        currentNumber: this.state.input,
+        input: ""
+      },
+      () => {
+        if (this.state.operand == "plus") {
+          this.setState({
+            input:
+              parseFloat(this.state.prevNumber) +
+              parseFloat(this.state.currentNumber)
+          });
+        }
+        if (this.state.operand == "minus") {
+          this.setState({
+            input:
+              parseFloat(this.state.prevNumber) -
+              parseFloat(this.state.currentNumber)
+          });
+        }
+        if (this.state.operand == "ori") {
+          this.setState({
+            input:
+              parseFloat(this.state.prevNumber) *
+              parseFloat(this.state.currentNumber)
+          });
+        }
+        if (this.state.operand == "divide") {
+          this.setState({
+            input:
+              parseFloat(this.state.prevNumber) /
+              parseFloat(this.state.currentNumber)
+          });
+        }
+      }
+    );
   };
 
   render() {
@@ -111,13 +117,9 @@ class App extends Component {
         </div>
         <div>
           <div className="calculator">
-            {/* nu vre flip move-u asta fut gura lui */}
-            <FlipMove>
-              <Input duration={150} easing="linear">
-                {rez}
-              </Input>
-            </FlipMove>
-
+            <React.Fragment>
+              <Input>{rez}</Input>
+            </React.Fragment>
             <div>
               <Button handleClick={this.addInput}>7</Button>
               <Button handleClick={this.addInput}>8</Button>
